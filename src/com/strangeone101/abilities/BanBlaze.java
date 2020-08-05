@@ -49,22 +49,6 @@ public class BanBlaze extends AvatarAbility implements AddonAbility {
     }
 
     @Override
-    public String getMovePreview(Player player) {
-        String displayedMessage = "";
-        if (getBendingPlayer().isOnCooldown(this)) {
-            final long cooldown = getBendingPlayer().getCooldown(this.getName()) - System.currentTimeMillis();
-            displayedMessage = ChatColor.RED + "" + ChatColor.STRIKETHROUGH + this.getName() + "" + ChatColor.RED + " - " + TimeUtil.formatTime(cooldown);
-        } else {
-            if (getBendingPlayer().getStance() != null && getBendingPlayer().getStance().getName().equals(this.getName())) {
-                displayedMessage = ChatColor.RED + "" + ChatColor.UNDERLINE + this.getName();
-            } else {
-                displayedMessage = ChatColor.RED + this.getName();
-            }
-        }
-        return displayedMessage;
-    }
-
-    @Override
     public void progress() {
         if (!getBendingPlayer().canBendIgnoreCooldowns(this)) {
             remove();
@@ -152,8 +136,8 @@ public class BanBlaze extends AvatarAbility implements AddonAbility {
 
                     }
                 }
-                if (Math.random() * 100 < particleChance && soundsThisTick < 3) {
-                    getPlayer().getWorld().playSound(player.getLocation(), Sound.BLOCK_ANVIL_PLACE, 2, 0.01F);
+                if (Math.random() * 100 < particleChance / 2 && soundsThisTick < 1) {
+                    getPlayer().getWorld().playSound(player.getLocation(), Sound.BLOCK_ANVIL_PLACE, 1, 0.01F);
                     soundsThisTick++;
                 }
             }
